@@ -457,14 +457,12 @@ export default function App() {
               borderBottom: '1px solid var(--border-color)',
             }}>
               <div 
-                className="no-scrollbar"
                 style={{ 
                   display: 'flex', 
-                  gap: '8px', 
-                  overflowX: 'auto', 
-                  paddingBottom: '8px',
+                  flexWrap: 'wrap',
+                  gap: '6px', 
+                  paddingBottom: '4px',
                   paddingTop: '4px',
-                  scrollbarWidth: 'none', // Firefox
                 }}>
                 <button
                   onClick={() => setSelectedCategory(null)}
