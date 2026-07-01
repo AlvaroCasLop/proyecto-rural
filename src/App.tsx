@@ -43,8 +43,10 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedLocation, setSelectedLocation] = useState<LocationItem | null>(null);
-  const [viewMode, setViewMode] = useState<'split' | 'list' | 'map'>('split');
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth < 768 : false);
+  const [viewMode, setViewMode] = useState<'split' | 'list' | 'map'>(
+    typeof window !== 'undefined' && window.innerWidth < 768 ? 'map' : 'split'
+  );
 
   // Check window width for responsive views
   useEffect(() => {
@@ -174,6 +176,7 @@ export default function App() {
 
     // Auto-fit bounds if we have points and no specific selection is active
     if (filteredLocations.length > 0 && !selectedLocation) {
+      map.invalidateSize();
       const group = L.featureGroup(Object.values(markersRef.current));
       map.fitBounds(group.getBounds().pad(0.15));
     }
