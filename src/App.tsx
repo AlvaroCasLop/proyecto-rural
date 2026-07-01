@@ -61,6 +61,14 @@ export default function App() {
     handleResize();
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+  // Trigger map size recalculation when view mode changes
+  useEffect(() => {
+    if (mapRef.current) {
+      setTimeout(() => {
+        mapRef.current?.invalidateSize();
+      }, 250);
+    }
+  }, [viewMode, isMobile]);
 
   // Filtered locations based on search and category
   const filteredLocations = useMemo(() => {
